@@ -32,6 +32,7 @@ function gform_after_submission($entry, $form) {
         // pageName
     );
 
+    // TODO: do we want to add utm fields from the referer.
     $fields = array();
     $consent = array();
     // consent fields
