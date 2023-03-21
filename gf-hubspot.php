@@ -21,7 +21,7 @@ function gform_after_submission($entry, $form) {
 
     $token = 'pat-na1-c8267d93-d087-4933-b545-cd2110ae43a0';
     $account_id = '24231628';
-    $form_id = "806ef897-c280-41a3-a236-36b5e452d9db";
+    $form_id = $form['hs_form_id'];
 
     $context = array(
         // TODO: include tracking script for cookie.
@@ -154,3 +154,13 @@ function add_encryption_tooltips( $tooltips ) {
     $tooltips['form_field_hsfield_value'] = "<h6>HubSpot Field Name</h6>Enter the field name used in HubSpot";
     return $tooltips;
 }
+
+add_filter( 'gform_form_settings_fields', function ( $fields, $form ) {
+    $fields['form_options']['fields'][] = array(
+        'type' => 'text',
+        'name' => 'hs_form_id',
+        'label' => 'HubSpot Form ID'
+    );
+
+    return $fields;
+}, 10, 2 );
