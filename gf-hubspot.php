@@ -56,27 +56,11 @@ function gform_after_submission($entry, $form) {
         if (!$type) { continue; }
 
         $value = rgar($entry, (string) $field->id);
-        switch($type) {
-            case 'formid':
-                $form_id = $value;
-                break;
-            case 'field':
-                $fields[] = array(
-                    'name' => $hsfield_name,
-                    'value' => $value
-                );
-                break;
-            case 'context':
-                $context[$name] = $value;
-                break;
-            case 'consent':
-                if ($name === "consentToProcess") {
-                    $consent[$name] = !empty($value);
-                } else {
-                    $consent[$name] = $value;
-                }
-                break;
-        }
+
+        $fields[] = array(
+            'name' => $hsfield_name,
+            'value' => $value
+        );
     }
 
     error_log("formid: ".$form_id);
