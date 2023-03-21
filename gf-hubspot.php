@@ -123,8 +123,10 @@ function editor_script(){
     ?>
     <script type='text/javascript'>
         //adding setting to fields of type "text"
-        fieldSettings.text += ', .hsfield_setting';
         fieldSettings.email += ', .hsfield_setting';
+        fieldSettings.hidden += ', .hsfield_setting';
+        fieldSettings.text += ', .hsfield_setting';
+        fieldSettings.textarea += ', .hsfield_setting';
         //binding to the load field settings event to initialize the text field
         jQuery(document).on('gform_load_field_settings', function(event, field, form){
             jQuery( '#field_hsfield_value' ).val( field['hsfieldField'] );
