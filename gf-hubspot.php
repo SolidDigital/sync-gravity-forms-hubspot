@@ -44,28 +44,25 @@ function gform_after_submission($entry, $form) {
         error_log("type: ".$field->type);
 
         $config_raw = $field->type === 'hidden' ? $field->label : $field->cssClass;
-        error_log("config_raw: ".$config_raw);
+        //error_log("config_raw: ".$config_raw);
 
-        // Get hs field config (e.g. hs_field_firstname) from the css class field.
-        preg_match("/hs_.+?\b/", $config_raw, $matches);
+        $hsfield_name = false;
+        $type = false;
+        if (property_exists($field, 'hsfieldField') && $field->hsfieldField) {
+            $hsfield_name = $field->hsfieldField;
+            $type = 'field';
+        }
 
-        error_log("matches: ".print_r($matches, true));
+        if (!$type) { continue; }
 
-        if (empty($matches)) continue;
-
-        $config = explode("_", $matches[0]);
-
-        $type = $config[1];
-        $name = isset($config[2]) ? $config[2] : "";
         $value = rgar($entry, (string) $field->id);
-
         switch($type) {
             case 'formid':
                 $form_id = $value;
                 break;
             case 'field':
                 $fields[] = array(
-                    'name' => $name,
+                    'name' => $hsfield_name,
                     'value' => $value
                 );
                 break;
