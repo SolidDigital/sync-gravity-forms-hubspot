@@ -1,4 +1,9 @@
 <?php
+// don't load directly.
+if ( ! defined( 'ABSPATH' ) ) {
+    die();
+}
+
 add_action( 'gform_field_standard_settings', 'my_standard_settings', 10, 2 );
 function my_standard_settings( $position, $form_id ) {
 
@@ -39,13 +44,3 @@ function add_encryption_tooltips( $tooltips ) {
     $tooltips['form_field_hsfield_value'] = "<h6>HubSpot Field Name</h6>Enter the field name used in HubSpot";
     return $tooltips;
 }
-
-add_filter( 'gform_form_settings_fields', function ( $fields, $form ) {
-    $fields['form_options']['fields'][] = array(
-        'type' => 'text',
-        'name' => 'hs_form_id',
-        'label' => 'HubSpot Form ID'
-    );
-
-    return $fields;
-}, 10, 2 );
