@@ -29,6 +29,7 @@ class HSFormsAddOn extends GFAddOn {
     public function init() {
         parent::init();
         add_action( 'gform_after_submission', array( $this, 'after_submission' ), 10, 2 );
+        add_action( 'wp_footer', array( $this, 'wp_footer'));
     }
 
     public function plugin_settings_fields() {
@@ -81,12 +82,10 @@ class HSFormsAddOn extends GFAddOn {
 
         error_log(">>>> t:$token a:$account_id");
         $context = array(
-// TODO: include tracking script for cookie.
-// 'hutk' => isset($_COOKIE['hubspotutk']) ? $_COOKIE['hubspotutk'] : "",
+            'hutk' => isset($_COOKIE['hubspotutk']) ? $_COOKIE['hubspotutk'] : "",
             'ipAddress' => $entry['ip'],
             'pageUri' => $entry['source_url']
-// Other fields
-// pageName
+// pageName can go here
         );
 
 // TODO: do we want to add utm fields from the referer.
@@ -98,11 +97,6 @@ class HSFormsAddOn extends GFAddOn {
 // 'text' => string
 
         foreach ( $form['fields'] as $field ) {
-            error_log("type: ".$field->type);
-
-            $config_raw = $field->type === 'hidden' ? $field->label : $field->cssClass;
-//error_log("config_raw: ".$config_raw);
-
             $hsfield_name = false;
             $type = false;
             if (property_exists($field, 'hsfieldField') && $field->hsfieldField) {
@@ -120,7 +114,6 @@ class HSFormsAddOn extends GFAddOn {
             );
         }
 
-        error_log("formid: ".$form_id);
         if ($form_id === "") return;
 
         $body = [
@@ -141,4 +134,14 @@ class HSFormsAddOn extends GFAddOn {
         error_log(print_r($response, true));
     }
 
+    public function wp_footer() {
+        $account_id = $this->get_plugin_setting('hs_sync_account_id');
+        if ($account_id) {
+            echo <<<ENT
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/$account_id.js"></script>
+<!-- End of HubSpot Embed Code -->
+ENT;
+        }
+    }
 }
