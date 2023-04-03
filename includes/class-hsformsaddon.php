@@ -43,8 +43,12 @@ class HSFormsAddOn extends GFAddOn {
             }
 
             $form = GFAPI::get_form( $params['id'] );
-            
-            error_log(json_encode($form,128));
+            $fields = rgar( $form, 'fields' );
+            $form['fields'][0]['description'] = "the first in a large group of text fields in this form";
+            $form = GFAPI::update_form( $form );
+            $form = GFAPI::get_form( $params['id'] );
+            error_log(print_r($form,true));
+            // error_log($form['description']);
 
 
         }
