@@ -30,6 +30,22 @@ class HSFormsAddOn extends GFAddOn {
         parent::init();
         add_action( 'gform_after_submission', array( $this, 'after_submission' ), 10, 2 );
         add_action( 'wp_footer', array( $this, 'wp_footer'));
+        add_action( 'gform_form_settings_page_hsformsaddon', array( $this, 'form_sync_fields'), 10);
+    }
+
+    public function form_sync_fields() {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            $param_list = explode("&", $_SERVER['QUERY_STRING']);
+            $params = [];
+            foreach ($param_list as $param) {
+                $item = explode("=", $param);
+                $params[$item[0]] = $item[1];
+            }
+
+            error_log(json_encode($params,128));
+
+
+        }
     }
 
     public function plugin_settings_fields() {
@@ -40,12 +56,6 @@ class HSFormsAddOn extends GFAddOn {
                     array(
                         'name'              => 'hs_sync_token',
                         'label'             => 'Private App Token',
-                        'type'              => 'text',
-                        'class'             => 'small'
-                    ),
-                    array(
-                        'name'              => 'hs_sync_account_id',
-                        'label'             => 'Account ID',
                         'type'              => 'text',
                         'class'             => 'small'
                     )
@@ -68,6 +78,14 @@ class HSFormsAddOn extends GFAddOn {
                         'type' => 'text',
                         'name' => 'hs_form_id',
                         'label' => 'HubSpot Form ID'
+                    ),
+                    array(
+                        'type'     => 'save',
+                        'messages' => array(
+                            'error'   => esc_html__( 'Settings could not be updated.', 'sometextdomain' ),
+                            'success' => esc_html__( 'Success! Settings have been updated.', 'sometextdomain' ),
+                        ),
+                        'value' => 'Sync the form fields'
                     )
                 )
             )
