@@ -42,7 +42,9 @@ class HSFormsAddOn extends GFAddOn {
                 $params[$item[0]] = $item[1];
             }
 
-            error_log(json_encode($params,128));
+            $form = GFAPI::get_form( $params['id'] );
+            
+            error_log(json_encode($form,128));
 
 
         }
