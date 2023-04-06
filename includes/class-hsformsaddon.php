@@ -32,6 +32,10 @@ class HSFormsAddOn extends GFAddOn {
         add_action( 'wp_footer', array( $this, 'wp_footer'));
     }
 
+    /**
+     * These are global settings for the entire GF plugin - they must be filled in
+     * @return array[]
+     */
     public function plugin_settings_fields() {
         return array(
             array(
@@ -56,6 +60,7 @@ class HSFormsAddOn extends GFAddOn {
 
     /**
      * Configures the settings which should be rendered on the Form Settings > Simple Add-On tab.
+     * If the ID is not filled in for a form, that form should not be synced to HS
      *
      * @return array
      */
@@ -76,9 +81,16 @@ class HSFormsAddOn extends GFAddOn {
 
     public function after_submission($entry, $form) {
 
+        // The $form_id is required to know which form in HS to push to
+        // The token and ID is required to be able to authenticate
+        // If any of the below are missing, we stop trying to process
         $token = $this->get_plugin_setting('hs_sync_token');
         $account_id = $this->get_plugin_setting('hs_sync_account_id');
         $form_id = $form['hs_form_id'];
+
+        if (!$token || !$account_id || $form_id) {
+            return;
+        }
 
         error_log(">>>> t:$token a:$account_id");
         $context = array(
