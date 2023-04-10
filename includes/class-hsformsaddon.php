@@ -42,16 +42,21 @@ class HSFormsAddOn extends GFAddOn {
                 $params[$item[0]] = $item[1];
             }
 
-            $form = GFAPI::get_form( $params['id'] );
-            $fields = rgar( $form, 'fields' );
-            $form['fields'][0]['description'] = "the first in a large group of text fields in this form";
-            $form = GFAPI::update_form( $form );
-            $form = GFAPI::get_form( $params['id'] );
-            error_log(print_r($form,true));
-            // error_log($form['description']);
+            $hs_fields = $this->fetch_hs_fields();
+            $gf_form = GFAPI::get_form( $params['id'] );
+            $gf_form = $this->match_gf_fields_to_hs($gf_form, $hs_fields);
 
-
+            GFAPI::update_form( $gf_form );
         }
+    }
+
+    private function fetch_hs_fields() {
+
+    }
+
+    private function match_gf_fields_to_hs($gf_form, $hs_fields) {
+        $gf_form['fields'][0]['description'] = "the first in a large group of text fields in this form";
+        return $gf_form;
     }
 
     /**
@@ -96,7 +101,7 @@ class HSFormsAddOn extends GFAddOn {
                             'error'   => esc_html__( 'Settings could not be updated.', 'sometextdomain' ),
                             'success' => esc_html__( 'Success! Settings have been updated.', 'sometextdomain' ),
                         ),
-                        'value' => 'Sync the form fields'
+                        'value' => 'Save Settings & Sync Fields'
                     )
                 )
             )
@@ -121,16 +126,16 @@ class HSFormsAddOn extends GFAddOn {
             'hutk' => isset($_COOKIE['hubspotutk']) ? $_COOKIE['hubspotutk'] : "",
             'ipAddress' => $entry['ip'],
             'pageUri' => $entry['source_url']
-// pageName can go here
+            // pageName can go here
         );
 
-// TODO: do we want to add utm fields from the referer.
+        // TODO: do we want to add utm fields from the referer.
         $fields = array();
         $consent = array();
-// consent fields
-// 'consentToProcess' => true/false
-// 'subscriptionTypeId' => string
-// 'text' => string
+        // consent fields
+        // 'consentToProcess' => true/false
+        // 'subscriptionTypeId' => string
+        // 'text' => string
 
         foreach ( $form['fields'] as $field ) {
             $hsfield_name = false;
