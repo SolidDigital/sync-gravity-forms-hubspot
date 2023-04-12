@@ -42,16 +42,30 @@ class HSFormsAddOn extends GFAddOn {
                 $params[$item[0]] = $item[1];
             }
 
-            $hs_fields = $this->fetch_hs_fields();
             $gf_form = GFAPI::get_form( $params['id'] );
+            $hs_fields = $this->fetch_hs_fields($gf_form);
             $gf_form = $this->match_gf_fields_to_hs($gf_form, $hs_fields);
 
             GFAPI::update_form( $gf_form );
         }
     }
 
-    private function fetch_hs_fields() {
+    private function fetch_hs_fields($gf_form) {
+        list($token, $account_id, $form_id) = $this->get_hsforms_info($gf_form);
+        if (!$token || !$account_id || $form_id) {
+            return;
+        }
 
+        $body = [];
+        $endpoint = '';
+
+        $response = wp_remote_post($endpoint, array(
+            'body' => wp_json_encode($body),
+            'headers' => array(
+                "Content-Type" => "application/json",
+                "Authorization" => "Bearer {$token}"
+            )
+        ));
     }
 
     private function match_gf_fields_to_hs($gf_form, $hs_fields) {
@@ -108,7 +122,7 @@ class HSFormsAddOn extends GFAddOn {
         );
     }
 
-    public function after_submission($entry, $form) {
+    private function get_hsforms_info($form) {
 
         // The $form_id is required to know which form in HS to push to
         // The token and ID is required to be able to authenticate
@@ -116,7 +130,12 @@ class HSFormsAddOn extends GFAddOn {
         $token = $this->get_plugin_setting('hs_sync_token');
         $account_id = $this->get_plugin_setting('hs_sync_account_id');
         $form_id = $form['hs_form_id'];
+        return [$token, $account_id, $form_id];
+    }
 
+    public function after_submission($entry, $form) {
+
+        list($token, $account_id, $form_id) = $this->get_hsforms_info($form);
         if (!$token || !$account_id || $form_id) {
             return;
         }
