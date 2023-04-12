@@ -87,6 +87,12 @@ class HSFormsAddOn extends GFAddOn {
                         'label'             => 'Private App Token',
                         'type'              => 'text',
                         'class'             => 'small'
+                    ),
+                    array(
+                        'name'              => 'hs_sync_account_id',
+                        'label'             => 'Account ID',
+                        'type'              => 'text',
+                        'class'             => 'small'
                     )
                 )
             )
