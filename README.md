@@ -5,23 +5,23 @@ This plugin allows you to link your Gravity Forms to the forms in your Hubspot a
 
 This will require a few steps to set up:
 
-`Hubspot steps`
+**Hubspot steps**
 - Marketing > Forms - add new form. Add fields you need.
 - Copy portal id from hubspot url. Add to plugin.
 - Settings Cog > Integrations > Private App - Add private app; for Scopes enable Standard > Forms. Add access token to plugin.
 
-`Gravity forms steps`
+**Gravity forms steps**
 - Add new form - match the fields of the hubspot form.
 - Special context variable available `hs_context_pageName`, which you can pull in the page name dynamically.
 - Add fields and set the HubSpot Field Name for each
 - Add the form ID as a Settings Option for the GF Form
-- Currently support HS fields
+- Currently supports HS fields
   - email
   - hidden
   - text
   - text area
 
-== Contributing ==
+== Contributing ==. 
 The code is managed on [github](https://github.com/SolidDigital/hubspot-plugin), and synced to [WordPress' HubSpot Plugin SVN repo](https://plugins.trac.wordpress.org/browser/hubspot-plugin/).
 
 == Installation ==
