@@ -11,6 +11,6 @@ function load_hsfields_addon() {
         return;
     }
 
-    require_once GFHS_PLUGIN_DIR_PATH . 'includes/class-hsformsaddon.php';
+    require_once GHS_PLUGIN_DIR_PATH . 'includes/class-hsformsaddon.php';
     GFAddOn::register( 'HSFormsAddOn');
 }

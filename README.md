@@ -1,4 +1,4 @@
-=== Solid Dynamics ===
+=== Gravity Hub Sync ===
 
 == Description ==
 This plugin allows you to link your Gravity Forms to the forms in your Hubspot account, so when you submit the Gravity Form, it pushes to the Hubspot form.
