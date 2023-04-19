@@ -1,11 +1,12 @@
 === Gravity Hub Sync ===
 
-Contributors: soliddigital,lukechinworth,peterajtai,dobbobolina,dwright213
-Tags: elementor, dynamic tags, jet engine, macros
-Tested up to: 6.2
-Stable tag: 1.0.0
-Requires PHP: 7.0
-License: GPLv2
+Contributors: soliddigital,lukechinworth,peterajtai,dobbobolina,dwright213 
+Tags: elementor, dynamic tags, jet engine, macros 
+Tested up to: 6.2 
+Stable tag: 1.0.0 
+Requires PHP: 7.0 
+License: GPLv2 
+
 
 == Description ==
 
