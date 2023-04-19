@@ -1,6 +1,7 @@
 === Gravity Hub Sync ===
 
 == Description ==
+
 This plugin allows you to link your Gravity Forms to the forms in your Hubspot account, so when you submit the Gravity Form, it pushes to the Hubspot form.
 
 This will require a few steps to set up:
@@ -21,10 +22,13 @@ This will require a few steps to set up:
   - text
   - text area
 
-== Contributing ==. 
+== Contributing ==
+
 The code is managed on [github](https://github.com/SolidDigital/hubspot-plugin), and synced to [WordPress' HubSpot Plugin SVN repo](https://plugins.trac.wordpress.org/browser/hubspot-plugin/).
 
 == Installation ==
+1. Download, unzip, and upload the plugin folder to `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Screenshots ==
 1. Add your app token and account ID in the Gravity Forms settings menu.
