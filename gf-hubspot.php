@@ -1,8 +1,8 @@
 <?php
 /*
-Plugin Name:  Gravity Hub Sync
-Plugin URI:   TBD
-Description:  Wordpress plugin that integrates HubSpot with Gravity Forms
+Plugin Name:  Sync Gravity Forms and Hubspot Forms
+Plugin URI:   https://github.com/SolidDigital/gravity-hub-sync
+Description:  Wordpress plugin that integrates Gravity Forms with Hubspot forms.
 Version:      1.0
 Author:       Solid Digital
 Author URI:   https://www.soliddigital.com
