@@ -36,7 +36,7 @@ This will require a few steps to set up:
 
 == Contributing ==
 
-The code is managed on [github](https://github.com/SolidDigital/hubspot-plugin), and synced to [WordPress' HubSpot Plugin SVN repo](https://plugins.trac.wordpress.org/browser/hubspot-plugin/).
+The code is managed on [github](https://github.com/SolidDigital/gravity-hub-sync)
 
 == Installation ==
 1. Download, unzip, and upload the plugin folder to `/wp-content/plugins/` directory
