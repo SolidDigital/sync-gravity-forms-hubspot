@@ -1,10 +1,12 @@
 <?php
+namespace Sync_Solid;
+
 // don't load directly.
 if ( ! defined( 'ABSPATH' ) ) {
     die();
 }
 
-add_action( 'gform_field_standard_settings', 'my_standard_settings', 10, 2 );
+add_action( 'gform_field_standard_settings', __NAMESPACE__ . '\\my_standard_settings', 10, 2 );
 function my_standard_settings( $position, $form_id ) {
 
     // $position is where on settings are the field is displayed - see form_detail.php in the GF plugin - search for gform_field_standard_settings
@@ -15,14 +17,14 @@ function my_standard_settings( $position, $form_id ) {
             <input type="text" id="field_hsfield_value" onchange="SetFieldProperty('hsfieldField', this.value);" />
             <label for="field_hsfield_value" style="display:inline;">
                 <?php _e("HubSpot Field Name", "your_text_domain"); ?>
-                <?php gform_tooltip("form_field_hsfield_value") ?>
+                <?php \gform_tooltip("form_field_hsfield_value") ?>
             </label>
         </li>
         <?php
     }
 }
 //Action to inject supporting script to the form editor page
-add_action( 'gform_editor_js', 'editor_script' );
+add_action( 'gform_editor_js', __NAMESPACE__ . '\\editor_script' );
 function editor_script(){
     ?>
     <script type='text/javascript'>
@@ -39,7 +41,7 @@ function editor_script(){
     <?php
 }
 //Filter to add a new tooltip
-add_filter( 'gform_tooltips', 'add_encryption_tooltips' );
+add_filter( 'gform_tooltips', __NAMESPACE__ . '\\add_encryption_tooltips' );
 function add_encryption_tooltips( $tooltips ) {
     $tooltips['form_field_hsfield_value'] = "<h6>HubSpot Field Name</h6>Enter the field name used in HubSpot";
     return $tooltips;
