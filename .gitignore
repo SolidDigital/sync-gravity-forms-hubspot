@@ -1,5 +1,6 @@
 .idea
 .DS_Store
+*.sh
 !.gitignore
 !.gitlab-ci.yml
 

@@ -36,7 +36,7 @@ class HSFormsAddOn extends GFAddOn {
     public function form_sync_fields() {
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            $param_list = explode("&", $_SERVER['QUERY_STRING']);
+            $param_list = explode("&", esc_url($_SERVER['QUERY_STRING']));
             $params = [];
             foreach ($param_list as $param) {
                 $item = explode("=", $param);
@@ -90,7 +90,6 @@ class HSFormsAddOn extends GFAddOn {
     }
 
     private function create_new_gf_field($gf_form, $hs_field) {
-        error_log(">>> Creating new GF Field: " . $hs_field->fields[0]->fieldType);
         $field = GF_Fields::create([
             'type' => $this->translate_hs_field_type($hs_field->fields[0]->fieldType),
             'id' =>  GFFormsModel::get_next_field_id($gf_form['fields']),
@@ -214,9 +213,8 @@ class HSFormsAddOn extends GFAddOn {
             return;
         }
 
-        error_log(">>>> t:$token a:$account_id");
         $context = array(
-            'hutk' => isset($_COOKIE['hubspotutk']) ? $_COOKIE['hubspotutk'] : "",
+            'hutk' => sanitize_text_field( $_COOKIE['hubspotutk'] ?? "" ),
             'ipAddress' => $entry['ip'],
             'pageUri' => $entry['source_url']
             // pageName can go here
@@ -248,8 +246,6 @@ class HSFormsAddOn extends GFAddOn {
             );
         }
 
-        if ($form_id === "") return;
-
         $body = [
             'context' => $context,
             'fields' => $fields,
@@ -264,8 +260,6 @@ class HSFormsAddOn extends GFAddOn {
                 "Authorization" => "Bearer {$token}"
             )
         ));
-
-        error_log(print_r($response, true));
     }
 
     public function wp_footer() {
