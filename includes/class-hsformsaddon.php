@@ -90,7 +90,6 @@ class HSFormsAddOn extends GFAddOn {
     }
 
     private function create_new_gf_field($gf_form, $hs_field) {
-        error_log(">>> Creating new GF Field: " . $hs_field->fields[0]->fieldType);
         $field = GF_Fields::create([
             'type' => $this->translate_hs_field_type($hs_field->fields[0]->fieldType),
             'id' =>  GFFormsModel::get_next_field_id($gf_form['fields']),
