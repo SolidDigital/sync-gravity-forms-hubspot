@@ -36,7 +36,7 @@ class HSFormsAddOn extends GFAddOn {
     public function form_sync_fields() {
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            $param_list = explode("&", esc_url($_SERVER['QUERY_STRING']));
+            $param_list = explode("&", sanitize_url($_SERVER['QUERY_STRING']));
             $params = [];
             foreach ($param_list as $param) {
                 $item = explode("=", $param);
