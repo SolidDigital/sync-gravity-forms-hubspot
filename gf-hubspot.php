@@ -4,7 +4,7 @@ namespace Sync_Solid;
 Plugin Name:  Sync Gravity Forms and Hubspot Forms
 Plugin URI:   https://github.com/SolidDigital/gravity-hub-sync
 Description:  WordPress plugin that integrates Gravity Forms with Hubspot forms.
-Version:      1.0
+Version:      1.0.1
 Author:       Solid Digital
 Author URI:   https://www.soliddigital.com
 License:      GPL2
