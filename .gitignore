@@ -3,4 +3,3 @@
 *.sh
 !.gitignore
 !.gitlab-ci.yml
-
